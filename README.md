@@ -1,3 +1,5 @@
+#FRONTEND IS WORK IN PROGRESS
+
 # DevClub Assignment 5
 
 You have learnt about backend engineering with Django in our session. Now use it to create a web application by yourself!
