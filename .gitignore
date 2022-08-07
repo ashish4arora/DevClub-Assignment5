@@ -1,0 +1,8 @@
+demo/django-env
+env/
+
+.DS_Store
+
+
+.gitsecret/keys/random_seed
+!*.secret

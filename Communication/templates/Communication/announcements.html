@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+{% block content %}
+
+{% if announcements %}
+<p>You have the following announcements</p>
+<table>
+    <tr>
+        <th>Course</th>
+        <th>Announcement</th>
+        <th>Dated</th>
+    </tr>
+{% for announcement in announcements %}
+<tr>
+    <th>{{announcement.course.coursecode}}</th>
+    <th><a href="{% url 'detailedAnnouncement' announcement.id %}">{{announcement}}</a></th>
+    <th>{{announcement.created}}</th>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<p>There are no new announcements</p>
+{% endif %}
+
+
+{% if request.user.Status == 'Instuctor' or request.user.is_Admin %}
+<br>
+<a href="make-announcement">Make an Announcement</a>
+{% endif %}
+{% endblock %}

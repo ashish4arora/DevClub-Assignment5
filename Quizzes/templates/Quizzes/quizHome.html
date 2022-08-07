@@ -1,0 +1,60 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<script>
+    function addquesform(){
+        var quesform = document.getElementById("addquesform")
+        quesform.classList.toggle("hidden")
+    }
+</script>
+
+
+{% if request.user.is_Admin or request.user.Status == "Instructor" %}
+<button onclick="window.location.href = 'makequiz'">Make Quiz</button>
+<button onclick="addquesform()">Add Question</button>
+<h2>Question Bank</h2>
+<form action="" method = "POST" enctype="multipart/form-data" id = "addquesform" class = "hidden">
+    {% csrf_token %}
+    {{addquesform}}
+    <input type="submit" value="Submit">
+</form>
+
+<table>
+    <tr>
+        <th>S.No</th>
+        <th>Question</th>
+        <th>Marks</th>
+        <th>Course</th>
+        <th>CourseCode</th>
+    </tr>
+    {% for question in questionbank %}
+        <tr>
+            <td>{{question.id}}</td>
+            <td>{{question}}</td>
+            <td>{{question.max_marks}}</td>
+            <td>{{question.course}}</td>
+            <td>{{question.course.coursecode}}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% if request.user.Status == "Student" %}
+<h2>Quizzes Scheduled</h2>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Course</th>
+        <th>Begins at</th>
+        <th>Attempt</th>
+    </tr>
+    {% for quiz in quizzes %}
+    <tr>
+        <td>{{quiz.title}}</td>
+        <td>{{quiz.course_id}}</td>
+        <td>{{quiz.startDate}} {{quiz.startTime}}</td>
+        <td><button onclick="window.location.href = '../quiz/{{quiz.id}}'">Attempt</button></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

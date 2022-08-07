@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% block content %}
+<script>
+function toggleForm(id){
+    console.log(id)
+    var el = "replyForm" + id
+    var element = document.getElementById(el);
+    element.classList.toggle("hidden");
+}
+</script>
+
+<p><strong>Course:</strong> {{announcement.course.coursecode}} - {{announcement.course}}</p>
+<p><strong>Created At: </strong>{{announcement.created}}</p>
+<p><strong>Title:</strong> {{announcement}} </p>
+<p><strong>Description:</strong> {{announcement.description}}</p>
+
+<h2>Comments</h2>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{commentForm}}
+    <input type="submit" value = "Post">
+</form>
+{% if comments != None %}
+{% for comment in comments %}
+<p>{{comment.author}} {{comment.created}}</p>
+<p>{{comment.body}}</p>
+<a href="javascript:void()" class="replylink" onclick="toggleForm('{{comment.id}}')">Reply</a>
+<form id = "replyForm{{ comment.id }}" method="POST" action="../replyPost/{{comment.id}}" class="hidden" >
+    {% csrf_token %}
+    {{replyForm}}
+    <input type="submit" value = "Reply">
+</form>
+<!-- replies -->
+    <div class = "replies">
+        {% for reply in comment.replies.all %}
+        <p>{{reply.author}} {{reply.created}}</p>
+        <p>- {{reply.body}}</p>
+        {% endfor %}
+    </div>
+<hr>
+{% endfor %}
+{% else %}
+<p>No Comments!</p>
+{% endif %}
+
+
+{% endblock %}

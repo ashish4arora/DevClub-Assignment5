@@ -1,0 +1,25 @@
+{% block content %}
+{% if grades and status == "Student" %}
+<p>You have the following grades</p>
+<table>
+    <tr>
+        <th>Assignment</th>
+        <th>Marks Secured</th>
+        <th>Total Marks</th>
+        <th>Percentage</th>
+        <th>Course</th>
+    </tr>
+{% for grade in grades %}
+<tr>
+    <td>{{grade.assignment_id}}</td>
+    <td>{{grade.marks}}</td>
+    <td>{{grade.assignment_id.total_marks}}</td>
+    <td>{{grade.percentage}}%</td>
+    <td>{{grade.assignment_id.course}}</td>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<p>You don't have any grades yet</p>
+{% endif %}
+{% endblock %}

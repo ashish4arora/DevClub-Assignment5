@@ -1,0 +1,21 @@
+<div class = "navbar">
+    <div id="navlogo">
+        <a href="/">
+        <h3>Django LMS</h3>
+        </a>
+    </div>
+    <div id = "navmenu">
+        {% if request.user.is_authenticated %}
+        <span><i class="fa-solid fa-user"></i> {{request.user.first_name}} {{request.user.last_name}}</span>
+        {% if request.user.is_Admin %}
+        <span><strong>Admin</strong></span>
+        {% else %}
+        <span>{{request.user.Status}} </span>
+        {% endif %}
+        <span><a href="{% url 'logout' %}">Logout</a></span>
+        {% else %}
+        <span><a href="{% url 'login' %}">Login</a></span>
+        {% endif %}
+    </div>
+</div>
+<hr>

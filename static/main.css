@@ -1,0 +1,93 @@
+table{
+    border: 2px solid;
+    border-collapse: collapse;
+}
+
+table td,th{
+    padding: 20px;
+    border: 1px solid;
+}
+
+p{
+    font-size: 1.2rem;
+}
+
+.replies{
+    padding-left: 10vw;
+}
+
+.hidden{
+    display: none;
+}
+
+.navbar{
+    display: inline-flex;
+    height: 50px;
+}
+
+#navmenu{
+    margin: 20px;
+    margin-left: 72vw;
+}
+
+#navmenu span{
+    margin: auto 4px;
+}
+
+#coursedisplay{
+    display: flex
+}
+
+.coursecontainers{
+    /* display: block; */
+    height: 230px;
+    width: 230px;
+    border: 2px solid blue;
+    border-radius: 5px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 1vh;
+    margin: 2vh 1vw;
+    margin-left: 0;
+    font-family: sans-serif;
+}
+
+#courses{
+    margin-left: 2vw;
+    width: 96vw;
+    height: auto;
+}
+
+.coursecontainers p{
+    margin: 12px auto;
+}
+
+.coursetitle{
+    font-weight: 600;
+    line-height: 1.2rem;
+}
+
+.button{
+    background-color: deepskyblue;
+    border-radius: 2px;
+    border: 1px black solid;
+    padding: 5px;
+    transition: 0.5s ease;
+}
+
+.button:hover{
+    background-color: aqua;
+    transition: 0.5s ease;
+    border-radius: 6px;
+    border: 1px black solid;
+    padding: 5px;
+    cursor: pointer;
+}
+#courses h2{
+    font-family: sans-serif;
+    font-weight: 600;
+}
+
+#navlogo{
+    margin-left: 2vw;
+}

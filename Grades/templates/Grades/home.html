@@ -1,0 +1,108 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class = "grid-container">
+    <div>
+
+        <div id ="courses">
+            {% if courses %}
+            {% if status == "Student" %}
+            <h2>You are enrolled in the following courses</h2>
+            {% else %}
+            <h2>You are teaching the following courses</h2>
+            {% endif %}
+            {% if request.user.is_Admin or request.user.Status == "Instructor" %}
+            <span><button onclick="window.location.href = '../upload'" class = "button">Upload Course Documents</button></span>
+            {% endif %}
+        <div id = "coursedisplay">
+            {% for course in courses %}
+            <div class = "coursecontainers">
+                <p class = "coursetitle">{{course.coursecode}}</p>
+                <hr>
+                <p>{{course}}</p>
+                <p>Credits: {{course.credits}}</p>
+                <p>Instructors: 
+                    {% for instructor in course.instructors.all %}
+                    {{instructor}}
+                    {% endfor %}
+                </p>
+                <p>Grade: {{course.grade}}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>You are not enrolled in any courses yet!</p>
+        {% endif %}
+        </div>
+        <hr>
+
+        {% if grades and status == "Student"%}
+        <p>You have the following grades</p>
+        <table>
+            <tr>
+                <th>Assignment</th>
+                <th>Marks Secured</th>
+                <th>Total Marks</th>
+                <th>Percentage</th>
+                <th>Course</th>
+            </tr>
+        {% for grade in grades %}
+        <tr>
+            <td>{{grade.assignment_id}}</td>
+            <td>{{grade.marks}}</td>
+            <td>{{grade.assignment_id.total_marks}}</td>
+            <td>{{grade.percentage}}%</td>
+            <td>{{grade.assignment_id.course}}</td>
+        </tr>
+        {% endfor %}
+        </table>
+        {% else %}
+        <p>You don't have any grades yet</p>
+        {% endif %}
+    </div>
+    <hr>
+
+    {% if request.user.is_Admin %}
+    <div>
+        <p><strong>Create a course</strong></p>
+        <form action="" method = "POST">
+            {% csrf_token %}
+            {{courseForm.as_p}}
+            <input type="submit" value = "Add Course">
+        </form>
+    </div>
+    {% endif %}
+    <hr>
+
+    <p><strong>Your Messages</strong></p>
+    {% if messagesReceived %}
+    <table>
+        <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>Message</th>
+        </tr>
+        {% for Message in messagesReceived %}
+        <tr>
+            <td>{{Message.author}}</td>
+            <td>{{Message.recipient}}</td>
+            <td>{{Message.body}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>You don't have any messages!</p>
+    {% endif %}
+    <br>
+    <button onclick="window.location.href = '../send-message'">Send Message</a>
+</div>
+<br>
+<hr>
+<br>
+<a href="{% url 'announcements' %}">Check Announcements</a>
+<br>
+<hr>
+<br>
+<a href="../quizhome">Quizzes</a>
+<br>
+<hr>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2>Choose Questions</h2>
+<form action="" method = "GET">
+    <input type="text" name="CourseCode" placeholder="Enter Course Code" maxlength="6">
+    <input type="submit" value="Filter">
+</form>
+<br>
+<form action="" method = "POST">
+    {% csrf_token %}
+    {{makequizform}}
+    <input type="submit" value="Make Quiz">
+<br>
+<br>
+<table>
+    <tr>
+        <th>S.No</th>
+        <th>Question</th>
+        <th>Marks</th>
+        <th>Course</th>
+        <th>CourseCode</th>
+        <th>Select</th>
+    </tr>
+    {% for question in questionbank %}
+        <tr>
+            <td>{{question.id}}</td>
+            <td>{{question}}</td>
+            <td>{{question.max_marks}}</td>
+            <td>{{question.course}}</td>
+            <td>{{question.course.coursecode}}</td>
+            <td><input type="checkbox" name="selectedquestions" value = "{{question.id}}"></td>
+        </tr>
+    {% endfor %}
+</table>
+</form>
+{% endblock %}

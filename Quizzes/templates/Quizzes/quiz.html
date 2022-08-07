@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+{% block content %}
+<div>
+    {% if quiz.startDate < currdate or  quiz.startDate == currdate and quiz.startTime < currtime  %}
+    <div class = "prequiz">
+        <p>The quiz will begin on {{quiz.startDate}} at {{quiz.startTime}}</p>
+    </div>
+    {% elif quiz.endDate > currdate or quiz.endDate == currdate and quiz.endTime > currtime %}
+    <div class = "postquiz">
+        <p>The quiz ended on {{quiz.endDate}} at {{quiz.endTime}}</p>
+    </div>
+    {% else %}
+    <div class = "quiz">
+        <button>Start Quiz</button>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
